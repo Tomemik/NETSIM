@@ -1,0 +1,4 @@
+C:/Users/tomem/Desktop/AGH/PSiO/zadania/NETSIM/cmake-build-debug/CMakeFiles/netsim.dir
+C:/Users/tomem/Desktop/AGH/PSiO/zadania/NETSIM/cmake-build-debug/CMakeFiles/NETSIM.dir
+C:/Users/tomem/Desktop/AGH/PSiO/zadania/NETSIM/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/tomem/Desktop/AGH/PSiO/zadania/NETSIM/cmake-build-debug/CMakeFiles/rebuild_cache.dir

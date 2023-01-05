@@ -1,0 +1,69 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.21"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "NETSIM",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "NETSIM::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-NETSIM-Debug-dd0eb3197ee76bf62e63.json",
+					"name" : "NETSIM",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "netsim::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-netsim-Debug-67008a69eeba61c79830.json",
+					"name" : "netsim",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/tomem/Desktop/AGH/PSiO/zadania/NETSIM/cmake-build-debug",
+		"source" : "C:/Users/tomem/Desktop/AGH/PSiO/zadania/NETSIM"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}
