@@ -12,33 +12,33 @@ Package::Package() {
         id = assigned_IDs.empty() ? 1 : *assigned_IDs.rbegin() + 1;
     }
     assigned_IDs.insert(id);
-    m_id = id;
+    id_ = id;
     }
 
-Package::Package(ElementID id) : m_id(id) {
+Package::Package(ElementID id) : id_(id) {
     assigned_IDs.insert(id);
 }
 
-Package::Package(const Package& other) : m_id(other.m_id) {}
+Package::Package(const Package& other) : id_(other.id_) {}
 
-Package::Package(Package&& other) : m_id(other.m_id) {}
+Package::Package(Package&& other) : id_(other.id_) {}
 
-Package::~Package() {freed_IDs.insert(m_id);}
+Package::~Package() {freed_IDs.insert(id_);}
 
-ElementID Package::get_id() const {return m_id;}
+ElementID Package::get_id() const {return id_;}
 
 Package& Package::operator=(const Package& other) {
-    freed_IDs.insert(m_id);
-    assigned_IDs.erase(m_id);
-    m_id = other.m_id;
-    assigned_IDs.insert(m_id);
+    freed_IDs.insert(id_);
+    assigned_IDs.erase(id_);
+    id_ = other.id_;
+    assigned_IDs.insert(id_);
     return *this;
 }
 
 Package& Package::operator=(Package&& other) {
-    freed_IDs.insert(m_id);
-    assigned_IDs.erase(m_id);
-    m_id = other.m_id;
-    assigned_IDs.insert(m_id);
+    freed_IDs.insert(id_);
+    assigned_IDs.erase(id_);
+    id_ = other.id_;
+    assigned_IDs.insert(id_);
     return *this;
 }

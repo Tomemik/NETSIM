@@ -25,7 +25,7 @@ public:
     Package& operator=(Package&& other);
 
 private:
-    ElementID m_id;
+    ElementID id_;
 };
 
 
