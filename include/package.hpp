@@ -6,9 +6,6 @@
 #include <algorithm>
 #include <set>
 #include <iostream>
-
-#pragma once
-
 #include <set>
 
 class Package {
@@ -30,4 +27,6 @@ public:
 private:
     ElementID m_id;
 };
+
+
 #endif //NETSIM_PACKAGE_HPP

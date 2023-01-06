@@ -36,8 +36,8 @@ Package PackageQueue::pop()
 {
     if (queueType_ == PackageQueueType::LIFO)
     {
-        Package package = std::move(queue_.back());)
-        m_queue.pop_back();
+        Package package = std::move(queue_.back());
+        queue_.pop_back();
         return package;
     }
     else

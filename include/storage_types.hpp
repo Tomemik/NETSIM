@@ -26,7 +26,7 @@ public:
     virtual size_t size() const = 0;
     virtual bool empty() const = 0;
 
-    virtual ~IPackageStockpile() = default; //
+    ~IPackageStockpile() = default;
 };
 
 class IPackageQueue : public IPackageStockpile
@@ -34,7 +34,9 @@ class IPackageQueue : public IPackageStockpile
 public:
     virtual Package pop() = 0;
 
-    virtual PackageQueueType get_queue_type() const;
+    virtual PackageQueueType get_queue_type() const = 0;
+
+    ~IPackageQueue() = default;
 };
 
 class PackageQueue : public IPackageQueue
