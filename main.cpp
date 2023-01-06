@@ -35,4 +35,13 @@ int main() {
         std::cout<<"lifo dziala poprawnie"<<std::endl;
     }
 
+    PackageQueueType t1 = fifo.get_queue_type();
+    PackageQueueType t2 = lifo.get_queue_type();
+    if(t1 == PackageQueueType::FIFO){
+        std::cout<<"FIFO"<<std::endl;
+    }
+    if(t2 == PackageQueueType::LIFO){
+        std::cout<<"LIFO"<<std::endl;
+    }
+
 }
