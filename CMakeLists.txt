@@ -3,8 +3,6 @@ project(NETSIM)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(NETSIM main.cpp)
-
 include_directories(
         include
 )
@@ -33,7 +31,7 @@ add_executable(netsim_test ${SOURCE_FILES} ${SOURCES_FILES_TESTS} test/main_gtes
 
 
 
-target_include_directories(NETSIM PUBLIC
+target_include_directories(netsim PUBLIC
     googletest-master/googlemock/include
     googletest-master/googletest/include
     mocks

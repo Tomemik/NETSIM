@@ -16,7 +16,7 @@ class IPackageStockpile
 public:
     using const_iterator = std::list<Package>::const_iterator;
 
-    virtual void push(const Package& package) = 0;
+    virtual void push(const Package&& package) = 0;
 
     virtual const_iterator cbegin() const = 0;
     virtual const_iterator cend() const = 0;
@@ -44,7 +44,7 @@ class PackageQueue : public IPackageQueue
 public:
     PackageQueue(PackageQueueType queueType);
 
-    void push(const Package& package) override;
+    void push(const Package&& package) override;
     const_iterator cbegin() const override;
     const_iterator cend() const override;
     const_iterator begin() const override;

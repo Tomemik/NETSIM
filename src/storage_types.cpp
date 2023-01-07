@@ -4,7 +4,7 @@
 
 PackageQueue::PackageQueue(PackageQueueType queueType) : queueType_(queueType){}
 
-void PackageQueue::push(const Package& package){
+void PackageQueue::push(const Package&& package){
     queue_.emplace_back(std::move(package));
 }
 
