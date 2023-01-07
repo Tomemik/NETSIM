@@ -35,8 +35,6 @@ public:
     virtual Package pop() = 0;
 
     virtual PackageQueueType get_queue_type() const = 0;
-
-    ~IPackageQueue() = default;
 };
 
 class PackageQueue : public IPackageQueue
