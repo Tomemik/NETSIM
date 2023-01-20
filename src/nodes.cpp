@@ -37,7 +37,7 @@ void PackageSender::send_package()
 {
     if (bufor)
     {
-        IPackageReceiver* receiver = receiver_preferences_.get_receiver();
+        IPackageReceiver* receiver = receiver_preferences_.choose_receiver();
         receiver->receive_package(std::move(*bufor));
         bufor.reset();
     }
@@ -52,22 +52,19 @@ void ReceiverPreferences::add_receiver(IPackageReceiver* r)
     for(auto &i : preferences_){ i.second /= static_cast<double>(preferences_.size());}
 }
 
-
-IPackageReceiver *ReceiverPreferences::get_receiver ()
-{
-    double p = pg_();
-    double distributor_value = 0.0;
-    for (auto& item: preferences_) {
-        distributor_value = distributor_value + item.second;
-        if (p<=distributor_value) {
+IPackageReceiver *ReceiverPreferences::choose_receiver(){
+    double number = pg_();
+    double sum = 0;
+    for (const auto &item: preferences_)
+    {
+        sum += item.second;
+        if(number <= sum)
             return item.first;
-        }
     }
-    throw std::runtime_error("Error has occurred in ReceiverPreferences::choose_receiver()");
+    return preferences_.end()->first;
 }
 
-
-void ReceiverPreferences::delete_receiver(IPackageReceiver* r){
+void ReceiverPreferences::remove_receiver(IPackageReceiver* r){
     if(preferences_.find(r) != preferences_.end())
     {
         preferences_.erase(r);
