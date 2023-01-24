@@ -5,7 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 include_directories(
         include
-        mocks
 )
 
 set(SOURCE_FILES
@@ -34,7 +33,7 @@ add_executable(netsim_test ${SOURCE_FILES} ${SOURCES_FILES_TESTS} test/main_gtes
 target_compile_definitions(netsim_test PUBLIC EXERCISE_ID=EXERCISE_ID_NODES)
 
 
-target_include_directories(netsim PUBLIC
+target_include_directories(netsim_test PUBLIC
     googletest-master/googlemock/include
     googletest-master/googletest/include
     mocks
