@@ -11,6 +11,7 @@
 #include <optional>
 #include <map>
 #include <functional>
+#include <utility>
 
 enum ReceiverType{
     WORKER,
@@ -19,40 +20,41 @@ enum ReceiverType{
 
 class IPackageReceiver{
 public:
-    using const_iter= IPackageStockpile::const_iterator;
+    using const_it= IPackageStockpile::const_iterator;
+
     virtual ElementID get_id() const = 0;
     virtual void receive_package(Package&& p) = 0;
-
 #if (EXERCISE_ID > EXERCISE_ID_NODES)
     virtual ReceiverType get_receiver_type () const = 0;
 #endif
-    virtual const_iter begin() const = 0;
-    virtual const_iter end() const = 0;
-    virtual const_iter cbegin() const = 0;
-    virtual const_iter cend() const = 0;
+    virtual const_it begin() const = 0;
+    virtual const_it end() const = 0;
+    virtual const_it cbegin() const = 0;
+    virtual const_it cend() const = 0;
 };
 
+class Storehouse : public IPackageReceiver {
+public:
+    Storehouse(ElementID id, std::unique_ptr<IPackageStockpile> d = std::make_unique<PackageQueue>(PackageQueueType::LIFO)) : _id(id), _d(std::move(d)) {}
 
-class Storehouse: public IPackageReceiver{
-    Storehouse(ElementID id, std::unique_ptr<IPackageStockpile> ptr):id_(id),ptr_(std::move(ptr)){}
-    Storehouse(const Storehouse&)=delete;
 #if (EXERCISE_ID > EXERCISE_ID_NODES)
     ReceiverType get_receiver_type() const {return ReceiverType::STOREHOUSE;};
 #endif
 
-    ElementID get_id() const override {return id_;};
+    ElementID get_id() const { return _id; }
+    void receive_package(Package&& pack) { _d->push(std::move(pack)); }
 
-    //wywołuje metody klasy, na którą wskazuje ptr_, którymi sa przeciążone iteratory std::list<Package>
-
-    const_iter begin() const {return ptr_->begin();};
-    const_iter end() const {return ptr_->end();};
-    const_iter cbegin() const {return ptr_ -> cbegin();};
-    const_iter cend() const {return ptr_ -> cend();};
+    // iteratory
+    const_it begin() const {return _d -> begin();};
+    const_it end() const {return _d -> end();};
+    const_it cbegin() const {return _d -> cbegin();};
+    const_it cend() const {return _d -> cend();};
 
 private:
-    ElementID id_;
-    std::unique_ptr<IPackageStockpile> ptr_;
+    ElementID _id;
+    std::unique_ptr<IPackageStockpile> _d;
 };
+
 
 //Najrozsądniej jest przekazać w parametrze konstruktora klasy ReceiverPreferences uchwyt do funkcji zwracającej
 // (tj. argumentem konstruktora będzie obiekt funkcyjny odpowiedniego typu) – uchwyt ten zostanie
@@ -64,11 +66,11 @@ public:
     using preferences_t = std::map<IPackageReceiver*, double>;
     using const_iterator = preferences_t::const_iterator;
 
-    ReceiverPreferences(ProbabilityGenerator pg = probability_generator):pg_(std::move(pg)){}
+    ReceiverPreferences(ProbabilityGenerator pg = probability_generator) : pg_(std::move(pg)){};
     const preferences_t& get_preferences() const{return preferences_;};
-    void add_receiver(IPackageReceiver* receiver_ptr);
-    void delete_receiver(IPackageReceiver* receiver_ptr);
-    IPackageReceiver* get_receiver();
+    void add_receiver(IPackageReceiver *receiver_ptr);
+    void remove_receiver(IPackageReceiver *receiver_ptr);
+    IPackageReceiver* choose_receiver();
 
     const_iterator begin() const {return preferences_.begin();};
     const_iterator end() const {return preferences_.end();};
@@ -97,6 +99,8 @@ class Ramp: public PackageSender{
 public:
     Ramp(ElementID id, TimeOffset di): id_(id), di_(di){}
     void deliver_goods(Time t);
+    TimeOffset get_delivery_interval() const {return di_;};
+    ElementID get_id() const {return id_;}
 private:
     ElementID id_;
     TimeOffset di_;

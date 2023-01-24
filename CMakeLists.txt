@@ -31,7 +31,7 @@ set(SOURCES_FILES_TESTS
 
 
 add_executable(netsim_test ${SOURCE_FILES} ${SOURCES_FILES_TESTS} test/main_gtest.cpp)
-
+target_compile_definitions(netsim_test PUBLIC EXERCISE_ID=EXERCISE_ID_NODES)
 
 
 target_include_directories(netsim PUBLIC

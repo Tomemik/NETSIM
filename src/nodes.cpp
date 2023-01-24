@@ -1,7 +1,6 @@
 #include "nodes.hpp"
 #include "helpers.hpp"
 
-
 void Ramp::deliver_goods(Time t)
 {
     if (t % di_ == 1)
@@ -52,16 +51,19 @@ void ReceiverPreferences::add_receiver(IPackageReceiver* r)
     for(auto &i : preferences_){ i.second /= static_cast<double>(preferences_.size());}
 }
 
-IPackageReceiver *ReceiverPreferences::choose_receiver(){
-    double number = pg_();
-    double sum = 0;
-    for (const auto &item: preferences_)
+IPackageReceiver *ReceiverPreferences::choose_receiver()
+{
+    double random = pg_();
+    double suma = 0;
+    for (const auto &[key, value] : preferences_)
     {
-        sum += item.second;
-        if(number <= sum)
-            return item.first;
+        suma += value;
+        if (random < suma)
+        {
+            return key;
+        }
     }
-    return preferences_.end()->first;
+    return preferences_.begin()->first;
 }
 
 void ReceiverPreferences::remove_receiver(IPackageReceiver* r){
